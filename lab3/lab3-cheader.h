@@ -20,8 +20,8 @@
 //  中断矢量号定义
 #define IRQNum	20h			// 中断矢量号,要根据学号计算得到后更新此定义。
 
-void io_write(unsigned int addr, unsigned int outword);
-void io_write(unsigned int addr, unsigned char outword);
+void io_write_word(unsigned int addr, unsigned int outword);
+void io_write_byte(unsigned int addr, unsigned char outbyte);
 unsigned int io_read(unsigned int addr);
 void DELAY(unsigned int delayCycle);
 void INIT8255(void);
