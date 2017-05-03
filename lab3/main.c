@@ -57,8 +57,17 @@ void main(void)
  
 void INIT8255(void)
 {
-	io_write_byte(L8253CS, 0x81);
+	io_write_byte(L8255CS, 0x81);
 }
+// 8255 control register notes:
+//	D7	1-I/O mode	0-BSR mode
+//	FOR I/O MODE(D7 = 1)
+//	D6D5	00-Mode 0, 01-Mode 1, 1*-Mode2
+//	D4		1-PortA input, 0-PortA output
+//	D3		1-PCU input, 0-PCU output
+//	D2		0-Mode 0, 1-Mode 1
+//	D1		1-PortB input, 0-PortB output
+//	D0		1-PCL input, 0-PCL output
 
 void INIT8253(unsigned int time, unsigned int counter, unsigned int mode)
 {

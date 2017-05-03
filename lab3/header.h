@@ -1,7 +1,9 @@
 #ifndef __header_h
 #define __header_h
+//==============================================================================
 // I/O port address defination
 // I/O端口地址声明
+//------------------------------------------------------------------------------
 // Port address of 8253
 // 8253芯片端口地址
 #define L8253T0 100h		//Even Timer0's address in I/O space, 108H as well.
@@ -71,7 +73,7 @@ void io_write_byte(unsigned int addr, unsigned char outbyte);
 //		addr, type byte, the target address to read data from
 // Output: 
 //		type word, the data read from the target address
-// 函数名称： io_write_byte
+// 函数名称： io_read
 // 从目标地址（addr）读取一个字长度的数据，汇编实现
 // 返回值可以直接赋值给字节类型的变量。若如此做，只有低八位被读取
 // 输入：
@@ -82,6 +84,14 @@ unsigned int io_read(unsigned int addr);
 
 void DELAY(unsigned int delayCycle);
 void INIT8255(void);
+
+// 8253 Mode Notes:
+// Mode 0 - Single one-shot, enabled by GATE, for watchdogs
+// Mode 1 - Hardware retriggerable one-shot, triggered by GATE
+// Mode 2 - Rate generator, enabled by GATE. Output LOW when down to 1, automatically restart
+// Mode 3 - Square wave generator, enabled by GATE. Period = N/2, duty cycle 50%(for even Ns)
+// Mode 4 - Software triggered strobe, slightly different to Mode 2
+// Mode 5 - Hardware triggered strobe
 void INIT8253(unsigned int time, unsigned int counter, unsigned int mode);
 void AccessPC(void);
 void DISPLAY8255(unsigned int segment, unsigned int displayNum);
