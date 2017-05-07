@@ -3,9 +3,9 @@
  * Created:   Wed Apr 12 2017
  * Processor: 8086
  * Compiler:  Digital Mars C
- * Author:	  Roger Wang
+ * Author:    Roger Wang
  *
- * This is an example for practicing C programming for 8086 in Proteus. 
+ * This is an example for practicing C programming for 8086 in Proteus simulation. 
  * C programming owns a great advantage in programming efficiency over assembly.
  * This program realizes most(but not all) functions in SJTU EE213 8086 lab 3.
  * It should display number "1234" on the seg-7, and by pressing the INT-Test button,
@@ -13,6 +13,8 @@
  *
  * PLEASE NOTE that you should switch your compiler from MASM32 to Digital Mars C before
  * simulation. Proteus will automatically generate a rtl.asm file, just leave it as it is.
+ *
+ * For tutorials and issues, visit the github page: https://github.com/rogerwwww/SJTU_EE213
  *
  * Before starting simulation set Internal Memory Size 
  * in the 8086 model properties to 0x10000
