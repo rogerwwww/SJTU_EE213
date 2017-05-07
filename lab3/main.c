@@ -40,6 +40,7 @@ const static unsigned char SEGTAB[16]={
 };
 
 // The watchdog period, actual period = watchdog_period * 2ms
+// 看门狗周期，实际周期为（watchdog_period * 2）ms
 const static unsigned int watchdog_period = 15;
 
 // Student number for interrupt vector table initialization(in lab-3 assignment)
@@ -290,11 +291,9 @@ void INT_INIT(void)
    __asm
    {
 		MOV AX, 0
-		MOV ES, AX				// 准备操作中断向量表
+		MOV ES, AX				// Get ready to operate IVT
 		
-								//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		MOV AX, OFFSET MYIRQ	//! Incorrect if using LEA! dont know why
-								//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
 		MOV BL, studentNo		//calculate interrupt offset
 		MOV BH, 0
@@ -340,7 +339,6 @@ void _interrupt _far MYIRQ(void)
 //	输出：无
 void FeedDog(unsigned int period)
 {
-	//看门狗喂狗程序，周期(period*2)ms
 	io_write_word(L8253T2, period);
 	period >>= 8;
 	io_write_word(L8253T2, period);
