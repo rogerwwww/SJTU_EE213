@@ -5,6 +5,8 @@
  * Compiler:  Digital Mars C
  * Author:    Roger Wang
  *
+ * Modified from original lab3 assembly file.
+ *
  * This is an example for practicing C programming for 8086 in Proteus simulation. 
  * C programming owns a great advantage in programming efficiency over assembly.
  * This program realizes most(but not all) functions in SJTU EE213 8086 lab 3.
