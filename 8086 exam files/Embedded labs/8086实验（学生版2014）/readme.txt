@@ -1,0 +1,2 @@
+1.  使用Windows 8/8.1操作系统的用户，在使用Proteus的Source->Build All菜单功能做程序的编译和链接时，如果编译顺利通过，在程序的链接过程中可能会弹出cmd窗口类似的黑色对话框，可直接打回车作为应答，以保证链接程序的运行，直接关闭该窗口将出现Build不成功的红色错误提示。
+2.	建议使用notepad++作为源代码编辑器，提供汇编语法高亮指示。可以在proteus的source->setup external text editor菜单中设定。

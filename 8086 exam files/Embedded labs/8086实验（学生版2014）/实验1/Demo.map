@@ -1,0 +1,9 @@
+Stack Allocation = 256 bytes
+
+ Start  Stop   Length Name                   Class
+ 00000H 00019H 0001AH _TEXT                  CODE
+ 0001AH 0001AH 00000H _DATA                  DATA
+ 00020H 0011FH 00100H STACK                  STACK
+
+ Origin   Group
+ 0001:0   DGROUP
