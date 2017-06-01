@@ -380,9 +380,9 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>exp2-4.c</FileName>
+              <FileName>exp2-t-5.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\exp2-4.c</FilePath>
+              <FilePath>.\exp2-t-5.c</FilePath>
             </File>
           </Files>
         </Group>

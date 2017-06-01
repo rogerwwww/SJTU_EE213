@@ -13,7 +13,7 @@
 #include "interrupt.h"
 #define SYSTICK_FREQUENCY		1000			//1000hz
 
-#define	I2C_FLASHTIME				500				//500mS
+//#define	I2C_FLASHTIME				500				//500mS
 #define GPIO_FLASHTIME			300				//300mS
 //*****************************************************************************
 //
@@ -52,6 +52,10 @@ void		S800_I2C0_Init(void);
 //systick software counter define
 volatile uint16_t systick_10ms_couter,systick_100ms_couter;
 volatile uint8_t	systick_10ms_status,systick_100ms_status;
+volatile uint16_t I2C_FLASHTIME = 1000;
+
+bool USR_SW1_pressed = false;
+uint16_t USR_SW1_counter = 0;
 
 volatile uint8_t result,cnt,key_value,gpio_status;
 volatile uint8_t rightshift = 0x01;
@@ -70,7 +74,7 @@ int main(void)
 	//use external 25M oscillator and PLL to 120M
    //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;		
 	ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 20000000);
-
+	
   SysTickPeriodSet(ui32SysClock/SYSTICK_FREQUENCY);
 	SysTickEnable();
 	SysTickIntEnable();
@@ -106,11 +110,8 @@ int main(void)
 		
 				result = I2C0_WriteByte(PCA9557_I2CADDR,PCA9557_OUTPUT,~rightshift);	
 
-				if (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0))
-				{
-					cnt++;
-					rightshift= rightshift<<1;
-				}
+				cnt++;
+				rightshift= rightshift<<1;
 
 				if (cnt		  >= 0x8)
 				{
@@ -138,8 +139,12 @@ void S800_GPIO_Init(void)
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF));			//Wait for the GPIO moduleF ready
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ);						//Enable PortJ	
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOJ));			//Wait for the GPIO moduleJ ready	
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);						//Enable PortN	
+	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPION));			//Wait for the GPIO moduleN ready		
 	
   GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
+  GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);			//Set PN0 as Output pin
+
 	GPIOPinTypeGPIOInput(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1);//Set the PJ0,PJ1 as input pin
 	GPIOPadConfigSet(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
 }
@@ -225,4 +230,32 @@ void SysTick_Handler(void)
 		systick_10ms_couter		= SYSTICK_FREQUENCY/100;
 		systick_10ms_status 	= 1;
 	}
+	
+	if (USR_SW1_counter == 0)
+	{
+		if (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0) == 0)
+		{
+			//systick_100ms_status	= systick_10ms_status = 0;
+			//GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0,GPIO_PIN_0);
+			USR_SW1_counter++;			
+		}
+
+	}
+	else if (++USR_SW1_counter == 50)
+	{
+		if (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0) == 0)
+		  switch(I2C_FLASHTIME)
+		  {
+  			case 1000: I2C_FLASHTIME = 2000; break;
+	  		case 2000: I2C_FLASHTIME = 200; break;
+		  	case 200: I2C_FLASHTIME = 500; break;
+	  		default: I2C_FLASHTIME = 1000;
+		  }
+		else
+		{
+			USR_SW1_counter = 0;
+		}
+	}
+	else if (USR_SW1_counter > 100 && GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0) == 1)
+		USR_SW1_counter = 0;
 }

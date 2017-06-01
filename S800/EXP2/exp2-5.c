@@ -63,14 +63,14 @@ int main(void)
 	volatile uint16_t	i2c_flash_cnt,gpio_flash_cnt;
 	//use internal 16M oscillator, PIOSC
    //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
-	//ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 8000000);		
+	//ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 1000000);		
 	//use external 25M oscillator, MOSC
    //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_OSC), 25000000);		
 
 	//use external 25M oscillator and PLL to 120M
    //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;		
-	ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 20000000);
-
+	ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_320), 20000000);
+		
   SysTickPeriodSet(ui32SysClock/SYSTICK_FREQUENCY);
 	SysTickEnable();
 	SysTickIntEnable();
@@ -106,11 +106,8 @@ int main(void)
 		
 				result = I2C0_WriteByte(PCA9557_I2CADDR,PCA9557_OUTPUT,~rightshift);	
 
-				if (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0))
-				{
-					cnt++;
-					rightshift= rightshift<<1;
-				}
+				cnt++;
+				rightshift= rightshift<<1;
 
 				if (cnt		  >= 0x8)
 				{
@@ -119,6 +116,9 @@ int main(void)
 				}
 
 			}
+			
+			//result = I2C0_ReadByte(TCA6424_I2CADDR,TCA6424_CONFIG_PORT0);
+
 		}
 	}
 
@@ -138,8 +138,12 @@ void S800_GPIO_Init(void)
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF));			//Wait for the GPIO moduleF ready
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ);						//Enable PortJ	
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOJ));			//Wait for the GPIO moduleJ ready	
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);						//Enable PortN	
+	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPION));			//Wait for the GPIO moduleN ready		
 	
   GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
+  GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);			//Set PN0 as Output pin
+
 	GPIOPinTypeGPIOInput(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1);//Set the PJ0,PJ1 as input pin
 	GPIOPadConfigSet(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
 }
@@ -156,13 +160,17 @@ void S800_I2C0_Init(void)
 
 	I2CMasterInitExpClk(I2C0_BASE,ui32SysClock, true);										//config I2C0 400k
 	I2CMasterEnable(I2C0_BASE);	
-
+	
+	
 	result = I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_CONFIG_PORT0,0x0ff);		//config port 0 as input
 	result = I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_CONFIG_PORT1,0x0);			//config port 1 as output
 	result = I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_CONFIG_PORT2,0x0);			//config port 2 as output 
 
 	result = I2C0_WriteByte(PCA9557_I2CADDR,PCA9557_CONFIG,0x00);					//config port as output
 	result = I2C0_WriteByte(PCA9557_I2CADDR,PCA9557_OUTPUT,0x0ff);				//turn off the LED1-8
+	
+	//result = I2C0_ReadByte(TCA6424_I2CADDR,TCA6424_INPUT_PORT0);
+
 	
 }
 
@@ -191,8 +199,8 @@ uint8_t I2C0_ReadByte(uint8_t DevAddr, uint8_t RegAddr)
 	while(I2CMasterBusy(I2C0_BASE)){};	
 	I2CMasterSlaveAddrSet(I2C0_BASE, DevAddr, false);
 	I2CMasterDataPut(I2C0_BASE, RegAddr);
-//	I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_SEND_START);		
-	I2CMasterControl(I2C0_BASE,I2C_MASTER_CMD_SINGLE_SEND);
+	I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_SEND_START);		
+//	I2CMasterControl(I2C0_BASE,I2C_MASTER_CMD_SINGLE_SEND);
 	while(I2CMasterBusBusy(I2C0_BASE));
 	rop = (uint8_t)I2CMasterErr(I2C0_BASE);
 	Delay(1);
@@ -225,4 +233,11 @@ void SysTick_Handler(void)
 		systick_10ms_couter		= SYSTICK_FREQUENCY/100;
 		systick_10ms_status 	= 1;
 	}
+	if (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0) == 0)
+	{
+		systick_100ms_status	= systick_10ms_status = 0;
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0,GPIO_PIN_0);		
+	}
+	else
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0,0);		
 }

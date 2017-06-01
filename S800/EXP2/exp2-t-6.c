@@ -48,19 +48,26 @@ void 		S800_GPIO_Init(void);
 uint8_t 	I2C0_WriteByte(uint8_t DevAddr, uint8_t RegAddr, uint8_t WriteData);
 uint8_t 	I2C0_ReadByte(uint8_t DevAddr, uint8_t RegAddr);
 void		S800_I2C0_Init(void);
+void    p1s(void);
+void    p1m(void);
 
 //systick software counter define
-volatile uint16_t systick_10ms_couter,systick_100ms_couter;
-volatile uint8_t	systick_10ms_status,systick_100ms_status;
+volatile uint16_t systick_10ms_couter,systick_100ms_couter,systick_5ms_couter;
+volatile uint8_t	systick_10ms_status,systick_100ms_status,systick_5ms_status;
 
 volatile uint8_t result,cnt,key_value,gpio_status;
 volatile uint8_t rightshift = 0x01;
+volatile uint8_t seg_scan = 0x01;
+volatile uint8_t clock_display[] = {2,3,0x11,3,3};
 uint32_t ui32SysClock;
-uint8_t seg7[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x58,0x5e,0x079,0x71,0x5c};
+uint8_t seg7[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x58,0x5e,0x079,0x71,0x5c,0x40};
+
+//switch counters
+volatile uint16_t USR_SW1_cnt = 0, USR_SW2_cnt = 0;
 
 int main(void)
 {
-	volatile uint16_t	i2c_flash_cnt,gpio_flash_cnt;
+	volatile uint16_t	i2c_flash_cnt,gpio_flash_cnt,clock_cnt,clock_disp_cnt = 0;
 	//use internal 16M oscillator, PIOSC
    //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
 	//ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 8000000);		
@@ -70,17 +77,29 @@ int main(void)
 	//use external 25M oscillator and PLL to 120M
    //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;		
 	ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 20000000);
-
+	
   SysTickPeriodSet(ui32SysClock/SYSTICK_FREQUENCY);
 	SysTickEnable();
 	SysTickIntEnable();
    IntMasterEnable();		
-
 	
 	S800_GPIO_Init();
 	S800_I2C0_Init();
 	while (1)
 	{
+		if (systick_5ms_status)
+		{
+			systick_5ms_status = 0;
+			seg_scan <<= 1;
+			clock_disp_cnt++;
+	  	if (seg_scan > 0x10)
+			{
+		  	seg_scan = 0x01;
+			  clock_disp_cnt = 0;
+			}
+		  result = I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_OUTPUT_PORT1,seg7[clock_display[clock_disp_cnt]]);	//write port 1 				
+		  result = I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_OUTPUT_PORT2,seg_scan);	//write port 2
+		}
 		if (systick_10ms_status)
 		{
 			systick_10ms_status		= 0;
@@ -94,6 +113,8 @@ int main(void)
 				gpio_status					= !gpio_status;
 			
 			}
+			
+					
 		}
 		if (systick_100ms_status)
 		{
@@ -101,23 +122,22 @@ int main(void)
 			if (++i2c_flash_cnt		>= I2C_FLASHTIME/100)
 			{
 				i2c_flash_cnt				= 0;
-				result 							= I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_OUTPUT_PORT1,seg7[cnt+1]);	//write port 1 				
-				result 							= I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_OUTPUT_PORT2,rightshift);	//write port 2
 		
 				result = I2C0_WriteByte(PCA9557_I2CADDR,PCA9557_OUTPUT,~rightshift);	
 
-				if (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0))
-				{
-					cnt++;
-					rightshift= rightshift<<1;
-				}
+				cnt++;
+				rightshift= rightshift<<1;
 
 				if (cnt		  >= 0x8)
 				{
 					rightshift= 0x01;
 					cnt 			= 0;
 				}
-
+			}
+			if (++clock_cnt >= 10)
+			{
+				clock_cnt = 0;
+				p1s();                    //+1s
 			}
 		}
 	}
@@ -132,14 +152,40 @@ void Delay(uint32_t value)
 	for(ui32Loop = 0; ui32Loop < value; ui32Loop++){};
 }
 
+void p1s()
+{
+	clock_display[4]++;
+	clock_display[3] += clock_display[4]/10;
+	clock_display[1] += clock_display[3]/6;
+	clock_display[0] += clock_display[1]/10;
+	
+	clock_display[4] %= 10;
+	clock_display[3] %= 6;
+	clock_display[1] %= 10;
+	clock_display[0] %= 6;
+}
+
+void p1m()
+{
+	clock_display[1] += 1;
+	clock_display[0] += clock_display[1]/10;
+	
+	clock_display[1] %= 10;
+	clock_display[0] %= 6;
+}
+
 void S800_GPIO_Init(void)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);						//Enable PortF
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF));			//Wait for the GPIO moduleF ready
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ);						//Enable PortJ	
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOJ));			//Wait for the GPIO moduleJ ready	
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);						//Enable PortN	
+	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPION));			//Wait for the GPIO moduleN ready		
 	
   GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
+  GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);			//Set PN0 as Output pin
+
 	GPIOPinTypeGPIOInput(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1);//Set the PJ0,PJ1 as input pin
 	GPIOPadConfigSet(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
 }
@@ -164,6 +210,8 @@ void S800_I2C0_Init(void)
 	result = I2C0_WriteByte(PCA9557_I2CADDR,PCA9557_CONFIG,0x00);					//config port as output
 	result = I2C0_WriteByte(PCA9557_I2CADDR,PCA9557_OUTPUT,0x0ff);				//turn off the LED1-8
 	
+	result = I2C0_ReadByte(TCA6424_I2CADDR,TCA6424_INPUT_PORT0);
+
 }
 
 
@@ -225,4 +273,55 @@ void SysTick_Handler(void)
 		systick_10ms_couter		= SYSTICK_FREQUENCY/100;
 		systick_10ms_status 	= 1;
 	}
+	
+	//5ms may be configured to another close frequency for better performance
+	if (systick_5ms_couter	!= 0)
+		systick_5ms_couter--;
+	else
+	{
+		systick_5ms_couter	= SYSTICK_FREQUENCY/300;
+		systick_5ms_status 	= 1;
+	}
+	
+	if(USR_SW1_cnt == 0)
+	{
+		if (GPIOPinRead(GPIO_PORTJ_BASE, GPIO_PIN_0) == 0)
+			USR_SW1_cnt++;
+	}
+	else if(USR_SW1_cnt++ == SYSTICK_FREQUENCY/20)
+	{		
+		if (GPIOPinRead(GPIO_PORTJ_BASE, GPIO_PIN_0) == 0)
+			p1s();
+		else
+			USR_SW1_cnt = 0;
+	}
+	else if(USR_SW1_cnt % (SYSTICK_FREQUENCY/5) == 0)
+		p1s();
+	else if(USR_SW1_cnt > SYSTICK_FREQUENCY/10)
+		USR_SW1_cnt = 0;
+	
+	if(USR_SW2_cnt == 0)
+	{
+		if (GPIOPinRead(GPIO_PORTJ_BASE, GPIO_PIN_1) == 0)
+			USR_SW2_cnt++;
+	}
+	else if(USR_SW2_cnt++ == SYSTICK_FREQUENCY/20)
+	{		
+		if (GPIOPinRead(GPIO_PORTJ_BASE, GPIO_PIN_1) == 0)
+			p1m();
+		else
+			USR_SW2_cnt = 0;
+	}
+	else if(USR_SW2_cnt % (SYSTICK_FREQUENCY/5) == 0)
+		p1m();
+	else if(USR_SW2_cnt > SYSTICK_FREQUENCY/10)
+		USR_SW2_cnt = 0;
+	/*
+	if (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0) == 0)
+	{
+		systick_100ms_status	= systick_10ms_status = 0;
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0,GPIO_PIN_0);		
+	}
+	else
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0,0);		*/
 }
