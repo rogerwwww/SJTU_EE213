@@ -27,6 +27,9 @@ void 		S800_GPIO_Init(void);
 
 int main(void)
 {
+	//Set clock frequency of 120MHz
+  //SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);
+
 	S800_GPIO_Init();
 	while(1)
   {

@@ -130,7 +130,6 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫萡?塒$€$眵</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -158,40 +157,7 @@
           <Name>UL2CM3(-S0 -C0 -P0 ) -FN1 -FC1000 -FD20000000 -FF0TM4C129_1024 -FL0100000 -FS00 -FP0($$Device:TM4C1294NCPDT$Flash\TM4C129_1024.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>32</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>1728</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>D:\OneDrive\Documents\2017\宓屽叆寮?S800鏉挎暀瀛︽枃浠?瀹為獙杞欢\S800\EXP1\exp1.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\exp1\exp1.c\32</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>58</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>1826</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>D:\OneDrive\Documents\2017\宓屽叆寮?S800鏉挎暀瀛︽枃浠?瀹為獙杞欢\S800\EXP1\exp1.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\exp1\exp1.c\58</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -212,6 +178,11 @@
           <count>3</count>
           <WinNumber>1</WinNumber>
           <ItemText>key_value2</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>key_value</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

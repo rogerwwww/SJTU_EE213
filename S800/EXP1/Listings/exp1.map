@@ -483,11 +483,11 @@ Image Symbol Table
     i.SysCtlPeripheralReady                  0x00000674   Section        0  sysctl.o(i.SysCtlPeripheralReady)
     i.SystemInit                             0x000006a0   Section        0  system_tm4c129.o(i.SystemInit)
     i.main                                   0x000006c0   Section        0  exp1.o(i.main)
-    x$fpl$fpinit                             0x00000854   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x00000854   Number         0  fpinit.o(x$fpl$fpinit)
-    .data                                    0x20000000   Section       34  exp1.o(.data)
-    .data                                    0x20000024   Section        4  system_tm4c129.o(.data)
-    .bss                                     0x20000028   Section       96  libspace.o(.bss)
+    x$fpl$fpinit                             0x0000083c   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x0000083c   Number         0  fpinit.o(x$fpl$fpinit)
+    .data                                    0x20000000   Section       32  exp1.o(.data)
+    .data                                    0x20000020   Section        4  system_tm4c129.o(.data)
+    .bss                                     0x20000024   Section       96  libspace.o(.bss)
     HEAP                                     0x20000088   Section        0  startup_tm4c129.o(HEAP)
     STACK                                    0x20000088   Section      512  startup_tm4c129.o(STACK)
     Heap_Mem                                 0x20000088   Data           0  startup_tm4c129.o(HEAP)
@@ -734,12 +734,12 @@ Image Symbol Table
     SysCtlPeripheralEnable                   0x0000064d   Thumb Code    36  sysctl.o(i.SysCtlPeripheralEnable)
     SysCtlPeripheralReady                    0x00000675   Thumb Code    40  sysctl.o(i.SysCtlPeripheralReady)
     SystemInit                               0x000006a1   Thumb Code    20  system_tm4c129.o(i.SystemInit)
-    main                                     0x000006c1   Thumb Code   350  exp1.o(i.main)
-    _fp_init                                 0x00000855   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x0000085d   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x0000085d   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    Region$$Table$$Base                      0x00000860   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00000880   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x000006c1   Thumb Code   334  exp1.o(i.main)
+    _fp_init                                 0x0000083d   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x00000845   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x00000845   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    Region$$Table$$Base                      0x00000848   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00000868   Number         0  anon$$obj.o(Region$$Table)
     delay_time                               0x20000000   Data           4  exp1.o(.data)
     key_value                                0x20000004   Data           4  exp1.o(.data)
     pressed_counter_0                        0x20000008   Data           4  exp1.o(.data)
@@ -751,11 +751,9 @@ Image Symbol Table
     pressed_flag_1                           0x2000001d   Data           1  exp1.o(.data)
     long_pressed_flag_0                      0x2000001e   Data           1  exp1.o(.data)
     long_pressed_flag_1                      0x2000001f   Data           1  exp1.o(.data)
-    long_lit_the_LED0                        0x20000020   Data           1  exp1.o(.data)
-    long_lit_the_LED1                        0x20000021   Data           1  exp1.o(.data)
-    SystemCoreClock                          0x20000024   Data           4  system_tm4c129.o(.data)
-    __libspace_start                         0x20000028   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x20000088   Data           0  libspace.o(.bss)
+    SystemCoreClock                          0x20000020   Data           4  system_tm4c129.o(.data)
+    __libspace_start                         0x20000024   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x20000084   Data           0  libspace.o(.bss)
 
 
 
@@ -765,9 +763,9 @@ Memory Map of the image
 
   Image Entry point : 0x00000201
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x000008a8, Max: 0x00100000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x0000088c, Max: 0x00100000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x00000000, Size: 0x00000880, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x00000000, Size: 0x00000868, Max: 0x00100000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -840,20 +838,20 @@ Memory Map of the image
     0x0000064c   0x00000028   Code   RO          479    i.SysCtlPeripheralEnable  driverlib.lib(sysctl.o)
     0x00000674   0x0000002c   Code   RO          483    i.SysCtlPeripheralReady  driverlib.lib(sysctl.o)
     0x000006a0   0x00000020   Code   RO           66    i.SystemInit        system_tm4c129.o
-    0x000006c0   0x00000194   Code   RO            3    i.main              exp1.o
-    0x00000854   0x0000000a   Code   RO         1010    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x0000085e   0x00000002   PAD
-    0x00000860   0x00000020   Data   RO         1078    Region$$Table       anon$$obj.o
+    0x000006c0   0x0000017c   Code   RO            3    i.main              exp1.o
+    0x0000083c   0x0000000a   Code   RO         1010    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x00000846   0x00000002   PAD
+    0x00000848   0x00000020   Data   RO         1078    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000288, Max: 0x00040000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000022   Data   RW            4    .data               exp1.o
-    0x20000022   0x00000002   PAD
-    0x20000024   0x00000004   Data   RW           67    .data               system_tm4c129.o
-    0x20000028   0x00000060   Zero   RW          952    .bss                c_w.l(libspace.o)
+    0x20000000   0x00000020   Data   RW            4    .data               exp1.o
+    0x20000020   0x00000004   Data   RW           67    .data               system_tm4c129.o
+    0x20000024   0x00000060   Zero   RW          952    .bss                c_w.l(libspace.o)
+    0x20000084   0x00000004   PAD
     0x20000088   0x00000000   Zero   RW           55    HEAP                startup_tm4c129.o
     0x20000088   0x00000200   Zero   RW           54    STACK               startup_tm4c129.o
 
@@ -865,14 +863,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       500         66          0         34          0       7099   exp1.o
-       300         22        512          0        512       6072   startup_tm4c129.o
-        32         12          0          4          0        807   system_tm4c129.o
+       476         58          0         32          0       6895   exp1.o
+       300         22        512          0        512       6060   startup_tm4c129.o
+        32         12          0          4          0        763   system_tm4c129.o
 
     ----------------------------------------------------------------------
-       832        100        544         40        512      13978   Object Totals
+       808         92        544         36        512      13718   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         0          0          0          2          0          0   (incl. Padding)
+         0          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -903,8 +901,8 @@ Image component sizes
         10          0          0          0          0        116   fpinit.o
 
     ----------------------------------------------------------------------
-       800         24          0          0         96       9509   Library Totals
-        10          0          0          0          0          0   (incl. Padding)
+       800         24          0          0        100       9509   Library Totals
+        10          0          0          0          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -915,7 +913,7 @@ Image component sizes
         10          0          0          0          0        116   fz_wm.l
 
     ----------------------------------------------------------------------
-       800         24          0          0         96       9509   Library Totals
+       800         24          0          0        100       9509   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -924,15 +922,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1632        124        544         40        608      22831   Grand Totals
-      1632        124        544         40        608      22831   ELF Image Totals
-      1632        124        544         40          0          0   ROM Totals
+      1608        116        544         36        612      22571   Grand Totals
+      1608        116        544         36        612      22571   ELF Image Totals
+      1608        116        544         36          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 2176 (   2.13kB)
+    Total RO  Size (Code + RO Data)                 2152 (   2.10kB)
     Total RW  Size (RW Data + ZI Data)               648 (   0.63kB)
-    Total ROM Size (Code + RO Data + RW Data)       2216 (   2.16kB)
+    Total ROM Size (Code + RO Data + RW Data)       2188 (   2.14kB)
 
 ==============================================================================
 
