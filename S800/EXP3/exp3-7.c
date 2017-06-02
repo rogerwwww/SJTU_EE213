@@ -74,7 +74,7 @@ int main(void)
 {
 	volatile uint16_t	i2c_flash_cnt,gpio_flash_cnt;
 	uint8_t month_loop_cnt, time_tmp[4];
-	uint32_t minutes;
+  int32_t minutes;
 	//use internal 16M oscillator, PIOSC
    //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
 	//ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 8000000);		
