@@ -14,12 +14,12 @@
 #include "uart.h"
 #include "hw_ints.h"
 
-#define SYSTICK_FREQUENCY    1000      //1000hz
+#define SYSTICK_FREQUENCY     1000       //1000hz
 
-#define  I2C_FLASHTIME        500        //500mS
-#define GPIO_FLASHTIME      300        //300mS
+#define I2C_FLASHTIME         500        //500mS
+#define GPIO_FLASHTIME        300        //300mS
 
-#define SUB_PRIORITY        2
+#define SUB_PRIORITY          2
 //*****************************************************************************
 //
 //I2C GPIO chip address and resigster define
@@ -29,7 +29,7 @@
 #define PCA9557_I2CADDR            0x18
 
 #define PCA9557_INPUT              0x00
-#define  PCA9557_OUTPUT            0x01
+#define PCA9557_OUTPUT             0x01
 #define PCA9557_POLINVERT          0x02
 #define PCA9557_CONFIG             0x03
 
