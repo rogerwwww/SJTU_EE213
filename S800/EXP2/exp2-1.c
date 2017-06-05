@@ -17,7 +17,7 @@
 #define TCA6424_I2CADDR 					0x22
 #define PCA9557_I2CADDR						0x18
 
-#define PCA9557_INPUT							0x00
+#define PCA9557_INPUT						0x00
 #define	PCA9557_OUTPUT						0x01
 #define PCA9557_POLINVERT					0x02
 #define PCA9557_CONFIG						0x03
@@ -50,7 +50,7 @@ uint8_t seg7[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x
 int main(void)
 {
 	//use internal 16M oscillator, HSI
-    ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
+		ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
 	
 	S800_GPIO_Init();
 	S800_I2C0_Init();
@@ -83,7 +83,7 @@ void S800_GPIO_Init(void)
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ);						//Enable PortJ	
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOJ));			//Wait for the GPIO moduleJ ready	
 	
-  GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
+	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
 	GPIOPinTypeGPIOInput(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1);//Set the PJ0,PJ1 as input pin
 	GPIOPadConfigSet(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
 }
@@ -92,12 +92,12 @@ void S800_GPIO_Init(void)
 void S800_I2C0_Init(void)
 {
 	uint8_t result;
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);//初始化i2c模块
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);//使用I2C模块0，引脚配置为I2C0SCL--PB2、I2C0SDA--PB3
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);//初始化i2c模块
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);//使用I2C模块0，引脚配置为I2C0SCL--PB2、I2C0SDA--PB3
 	GPIOPinConfigure(GPIO_PB2_I2C0SCL);//配置PB2为I2C0SCL
-  GPIOPinConfigure(GPIO_PB3_I2C0SDA);//配置PB3为I2C0SDA
-  GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);//I2C将GPIO_PIN_2用作SCL
-  GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);//I2C将GPIO_PIN_3用作SDA
+	GPIOPinConfigure(GPIO_PB3_I2C0SDA);//配置PB3为I2C0SDA
+	GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);//I2C将GPIO_PIN_2用作SCL
+	GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);//I2C将GPIO_PIN_3用作SDA
 
 	I2CMasterInitExpClk(I2C0_BASE,ui32SysClock, true);										//config I2C0 400k
 	I2CMasterEnable(I2C0_BASE);	

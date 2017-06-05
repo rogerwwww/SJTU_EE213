@@ -129,6 +129,10 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>DLGUARM</Key>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
           <Name>-L70 -Z18 -C0 -M0 -T1</Name>
         </SetRegEntry>
@@ -157,50 +161,34 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>261</LineNumber>
+          <LineNumber>479</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>6222</Address>
+          <Address>3900</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>D:\OneDrive\Documents\2017\宓屽叆寮?SJTU_EE213\S800\EXP3\exp3-7.c</Filename>
+          <Filename>D:\OneDrive\Documents\2017\宓屽叆寮?SJTU_EE213\S800\EXP-project\exp-proj.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\exp1\exp3-7.c\261</Expression>
+          <Expression>\\exp1\exp-proj.c\479</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>278</LineNumber>
+          <LineNumber>479</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>6450</Address>
+          <Address>4012</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>D:\OneDrive\Documents\2017\宓屽叆寮?SJTU_EE213\S800\EXP3\exp3-7.c</Filename>
+          <Filename>D:\OneDrive\Documents\2017\宓屽叆寮?SJTU_EE213\S800\EXP-project\exp-proj.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\exp1\exp3-7.c\278</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>285</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>6530</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>D:\OneDrive\Documents\2017\宓屽叆寮?SJTU_EE213\S800\EXP3\exp3-7.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\exp1\exp3-7.c\285</Expression>
+          <Expression>\\exp1\exp-proj.c\479</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -287,6 +275,12 @@
       <bLin2Auto>0</bLin2Auto>
       <bAutoGenD>0</bAutoGenD>
       <bAuto2GenD>0</bAuto2GenD>
+      <SystemViewers>
+        <Entry>
+          <Name>System Viewer\UART0</Name>
+          <WinId>35905</WinId>
+        </Entry>
+      </SystemViewers>
     </TargetOption>
   </Target>
 

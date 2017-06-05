@@ -67,12 +67,12 @@ Section Cross References
     exp-proj.o(i.main) refers to gpio.o(i.GPIOPinWrite) for GPIOPinWrite
     exp-proj.o(i.main) refers to exp-proj.o(i.UARTStringPut) for UARTStringPut
     exp-proj.o(i.main) refers to exp-proj.o(i.I2C0_WriteByte) for I2C0_WriteByte
-    exp-proj.o(i.main) refers to exp-proj.o(.data) for ui32SysClock
-    exp-proj.o(i.main) refers to exp-proj.o(.constdata) for seg7
     exp-proj.o(i.main) refers to strncmp.o(.text) for strncmp
     exp-proj.o(i.main) refers to strcmpv7m.o(.text) for strcmp
-    exp-proj.o(i.main) refers to uart.o(i.UARTCharPut) for UARTCharPut
+    exp-proj.o(i.main) refers to exp-proj.o(.data) for ui32SysClock
+    exp-proj.o(i.main) refers to exp-proj.o(.constdata) for seg7
     exp-proj.o(i.main) refers to exp-proj.o(.bss) for uart_receive_buffer
+    exp-proj.o(i.main) refers to uart.o(i.UARTCharPut) for UARTCharPut
     startup_tm4c129.o(STACK) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_tm4c129.o(HEAP) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_tm4c129.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
@@ -683,34 +683,34 @@ Image Symbol Table
     i.UARTIntStatus                          0x00001088   Section        0  uart.o(i.UARTIntStatus)
     i.UARTStringPut                          0x00001094   Section        0  exp-proj.o(i.UARTStringPut)
     i.main                                   0x000010b0   Section        0  exp-proj.o(i.main)
-    x$fpl$fpinit                             0x00001810   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x00001810   Number         0  fpinit.o(x$fpl$fpinit)
-    .constdata                               0x0000181a   Section       18  exp-proj.o(.constdata)
-    .constdata                               0x0000182c   Section      552  gpio.o(.constdata)
-    g_ppui32GPIOIntMapBlizzard               0x0000182c   Data         192  gpio.o(.constdata)
-    g_ppui32GPIOIntMapSnowflake              0x000018ec   Data         216  gpio.o(.constdata)
-    g_pui32GPIOBaseAddrs                     0x000019c4   Data         144  gpio.o(.constdata)
-    .constdata                               0x00001a54   Section      268  interrupt.o(.constdata)
-    g_pui32Priority                          0x00001a54   Data          32  interrupt.o(.constdata)
-    g_pui32Regs                              0x00001a74   Data         156  interrupt.o(.constdata)
-    g_pui32EnRegs                            0x00001b10   Data          20  interrupt.o(.constdata)
-    g_pui32Dii16Regs                         0x00001b24   Data          20  interrupt.o(.constdata)
-    g_pui32PendRegs                          0x00001b38   Data          20  interrupt.o(.constdata)
-    g_pui32UnpendRegs                        0x00001b4c   Data          20  interrupt.o(.constdata)
-    .constdata                               0x00001b60   Section      596  sysctl.o(.constdata)
-    g_pui32VCOFrequencies                    0x00001b60   Data           8  sysctl.o(.constdata)
-    g_pui32Xtals                             0x00001b68   Data         108  sysctl.o(.constdata)
-    g_pppui32XTALtoVCO                       0x00001bd4   Data         432  sysctl.o(.constdata)
-    g_sXTALtoMEMTIM                          0x00001d84   Data          48  sysctl.o(.constdata)
-    .data                                    0x20000000   Section       43  exp-proj.o(.data)
-    .data                                    0x2000002c   Section        4  system_tm4c129.o(.data)
-    .bss                                     0x20000030   Section      256  exp-proj.o(.bss)
-    .bss                                     0x20000130   Section       96  libspace.o(.bss)
-    HEAP                                     0x20000190   Section        0  startup_tm4c129.o(HEAP)
-    STACK                                    0x20000190   Section      512  startup_tm4c129.o(STACK)
-    Heap_Mem                                 0x20000190   Data           0  startup_tm4c129.o(HEAP)
-    Stack_Mem                                0x20000190   Data         512  startup_tm4c129.o(STACK)
-    __initial_sp                             0x20000390   Data           0  startup_tm4c129.o(STACK)
+    x$fpl$fpinit                             0x00001748   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x00001748   Number         0  fpinit.o(x$fpl$fpinit)
+    .constdata                               0x00001752   Section       18  exp-proj.o(.constdata)
+    .constdata                               0x00001764   Section      552  gpio.o(.constdata)
+    g_ppui32GPIOIntMapBlizzard               0x00001764   Data         192  gpio.o(.constdata)
+    g_ppui32GPIOIntMapSnowflake              0x00001824   Data         216  gpio.o(.constdata)
+    g_pui32GPIOBaseAddrs                     0x000018fc   Data         144  gpio.o(.constdata)
+    .constdata                               0x0000198c   Section      268  interrupt.o(.constdata)
+    g_pui32Priority                          0x0000198c   Data          32  interrupt.o(.constdata)
+    g_pui32Regs                              0x000019ac   Data         156  interrupt.o(.constdata)
+    g_pui32EnRegs                            0x00001a48   Data          20  interrupt.o(.constdata)
+    g_pui32Dii16Regs                         0x00001a5c   Data          20  interrupt.o(.constdata)
+    g_pui32PendRegs                          0x00001a70   Data          20  interrupt.o(.constdata)
+    g_pui32UnpendRegs                        0x00001a84   Data          20  interrupt.o(.constdata)
+    .constdata                               0x00001a98   Section      596  sysctl.o(.constdata)
+    g_pui32VCOFrequencies                    0x00001a98   Data           8  sysctl.o(.constdata)
+    g_pui32Xtals                             0x00001aa0   Data         108  sysctl.o(.constdata)
+    g_pppui32XTALtoVCO                       0x00001b0c   Data         432  sysctl.o(.constdata)
+    g_sXTALtoMEMTIM                          0x00001cbc   Data          48  sysctl.o(.constdata)
+    .data                                    0x20000000   Section       47  exp-proj.o(.data)
+    .data                                    0x20000030   Section        4  system_tm4c129.o(.data)
+    .bss                                     0x20000034   Section      256  exp-proj.o(.bss)
+    .bss                                     0x20000134   Section       96  libspace.o(.bss)
+    HEAP                                     0x20000198   Section        0  startup_tm4c129.o(HEAP)
+    STACK                                    0x20000198   Section      512  startup_tm4c129.o(STACK)
+    Heap_Mem                                 0x20000198   Data           0  startup_tm4c129.o(HEAP)
+    Stack_Mem                                0x20000198   Data         512  startup_tm4c129.o(STACK)
+    __initial_sp                             0x20000398   Data           0  startup_tm4c129.o(STACK)
 
     Global Symbols
 
@@ -993,13 +993,13 @@ Image Symbol Table
     UARTIntEnable                            0x00001081   Thumb Code     8  uart.o(i.UARTIntEnable)
     UARTIntStatus                            0x00001089   Thumb Code    10  uart.o(i.UARTIntStatus)
     UARTStringPut                            0x00001095   Thumb Code    24  exp-proj.o(i.UARTStringPut)
-    main                                     0x000010b1   Thumb Code  1762  exp-proj.o(i.main)
-    _fp_init                                 0x00001811   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x00001819   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x00001819   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    seg7                                     0x0000181a   Data          18  exp-proj.o(.constdata)
-    Region$$Table$$Base                      0x00001db4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00001dd4   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x000010b1   Thumb Code  1584  exp-proj.o(i.main)
+    _fp_init                                 0x00001749   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x00001751   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x00001751   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    seg7                                     0x00001752   Data          18  exp-proj.o(.constdata)
+    Region$$Table$$Base                      0x00001cec   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00001d0c   Number         0  anon$$obj.o(Region$$Table)
     systick_5ms_couter                       0x20000000   Data           2  exp-proj.o(.data)
     systick_100ms_couter                     0x20000002   Data           2  exp-proj.o(.data)
     systick_5ms_status                       0x20000004   Data           1  exp-proj.o(.data)
@@ -1007,25 +1007,27 @@ Image Symbol Table
     uart_command_status                      0x20000006   Data           1  exp-proj.o(.data)
     task_1_pri                               0x20000007   Data           1  exp-proj.o(.data)
     task_2_pri                               0x20000008   Data           1  exp-proj.o(.data)
-    task_3_pri                               0x20000009   Data           1  exp-proj.o(.data)
-    mask_pri                                 0x2000000a   Data           1  exp-proj.o(.data)
-    result                                   0x2000000b   Data           1  exp-proj.o(.data)
-    cnt                                      0x2000000c   Data           1  exp-proj.o(.data)
-    key_value                                0x2000000d   Data           1  exp-proj.o(.data)
-    gpio_status                              0x2000000e   Data           1  exp-proj.o(.data)
-    rightshift                               0x2000000f   Data           1  exp-proj.o(.data)
-    ui32SysClock                             0x20000010   Data           4  exp-proj.o(.data)
-    ui32IntPriorityGroup                     0x20000014   Data           4  exp-proj.o(.data)
-    ui32IntPriorityMask                      0x20000018   Data           4  exp-proj.o(.data)
-    ui32IntPrioritySystick                   0x2000001c   Data           4  exp-proj.o(.data)
-    ui32IntPriorityUart0                     0x20000020   Data           4  exp-proj.o(.data)
-    clock_num                                0x20000024   Data           5  exp-proj.o(.data)
-    buffer_pointer                           0x20000029   Data           1  exp-proj.o(.data)
-    tmpptr                                   0x2000002a   Data           1  exp-proj.o(.data)
-    SystemCoreClock                          0x2000002c   Data           4  system_tm4c129.o(.data)
-    uart_receive_buffer                      0x20000030   Data         256  exp-proj.o(.bss)
-    __libspace_start                         0x20000130   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x20000190   Data           0  libspace.o(.bss)
+    task_1_pressed_flag                      0x20000009   Data           1  exp-proj.o(.data)
+    task_3_pri                               0x2000000a   Data           1  exp-proj.o(.data)
+    mask_pri                                 0x2000000b   Data           1  exp-proj.o(.data)
+    task_2_pressed_flag                      0x2000000c   Data           1  exp-proj.o(.data)
+    result                                   0x2000000d   Data           1  exp-proj.o(.data)
+    cnt                                      0x2000000e   Data           1  exp-proj.o(.data)
+    key_value                                0x2000000f   Data           1  exp-proj.o(.data)
+    gpio_status                              0x20000010   Data           1  exp-proj.o(.data)
+    rightshift                               0x20000011   Data           1  exp-proj.o(.data)
+    ui32SysClock                             0x20000014   Data           4  exp-proj.o(.data)
+    ui32IntPriorityGroup                     0x20000018   Data           4  exp-proj.o(.data)
+    ui32IntPriorityMask                      0x2000001c   Data           4  exp-proj.o(.data)
+    ui32IntPrioritySystick                   0x20000020   Data           4  exp-proj.o(.data)
+    ui32IntPriorityUart0                     0x20000024   Data           4  exp-proj.o(.data)
+    clock_num                                0x20000028   Data           5  exp-proj.o(.data)
+    buffer_pointer                           0x2000002d   Data           1  exp-proj.o(.data)
+    tmpptr                                   0x2000002e   Data           1  exp-proj.o(.data)
+    SystemCoreClock                          0x20000030   Data           4  system_tm4c129.o(.data)
+    uart_receive_buffer                      0x20000034   Data         256  exp-proj.o(.bss)
+    __libspace_start                         0x20000134   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x20000194   Data           0  libspace.o(.bss)
 
 
 
@@ -1035,9 +1037,9 @@ Memory Map of the image
 
   Image Entry point : 0x00000201
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00001e04, Max: 0x00100000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00001d40, Max: 0x00100000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x00000000, Size: 0x00001dd4, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x00000000, Size: 0x00001d0c, Max: 0x00100000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1154,26 +1156,27 @@ Memory Map of the image
     0x00001088   0x0000000a   Code   RO         1411    i.UARTIntStatus     driverlib.lib(uart.o)
     0x00001092   0x00000002   PAD
     0x00001094   0x0000001c   Code   RO            9    i.UARTStringPut     exp-proj.o
-    0x000010b0   0x00000760   Code   RO           11    i.main              exp-proj.o
-    0x00001810   0x0000000a   Code   RO         1780    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x0000181a   0x00000012   Data   RO           13    .constdata          exp-proj.o
-    0x0000182c   0x00000228   Data   RO          234    .constdata          driverlib.lib(gpio.o)
-    0x00001a54   0x0000010c   Data   RO          870    .constdata          driverlib.lib(interrupt.o)
-    0x00001b60   0x00000254   Data   RO         1025    .constdata          driverlib.lib(sysctl.o)
-    0x00001db4   0x00000020   Data   RO         1848    Region$$Table       anon$$obj.o
+    0x000010b0   0x00000698   Code   RO           11    i.main              exp-proj.o
+    0x00001748   0x0000000a   Code   RO         1780    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x00001752   0x00000012   Data   RO           13    .constdata          exp-proj.o
+    0x00001764   0x00000228   Data   RO          234    .constdata          driverlib.lib(gpio.o)
+    0x0000198c   0x0000010c   Data   RO          870    .constdata          driverlib.lib(interrupt.o)
+    0x00001a98   0x00000254   Data   RO         1025    .constdata          driverlib.lib(sysctl.o)
+    0x00001cec   0x00000020   Data   RO         1848    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000390, Max: 0x00040000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000398, Max: 0x00040000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x0000002b   Data   RW           14    .data               exp-proj.o
-    0x2000002b   0x00000001   PAD
-    0x2000002c   0x00000004   Data   RW          138    .data               system_tm4c129.o
-    0x20000030   0x00000100   Zero   RW           12    .bss                exp-proj.o
-    0x20000130   0x00000060   Zero   RW         1722    .bss                c_w.l(libspace.o)
-    0x20000190   0x00000000   Zero   RW          126    HEAP                startup_tm4c129.o
-    0x20000190   0x00000200   Zero   RW          125    STACK               startup_tm4c129.o
+    0x20000000   0x0000002f   Data   RW           14    .data               exp-proj.o
+    0x2000002f   0x00000001   PAD
+    0x20000030   0x00000004   Data   RW          138    .data               system_tm4c129.o
+    0x20000034   0x00000100   Zero   RW           12    .bss                exp-proj.o
+    0x20000134   0x00000060   Zero   RW         1722    .bss                c_w.l(libspace.o)
+    0x20000194   0x00000004   PAD
+    0x20000198   0x00000000   Zero   RW          126    HEAP                startup_tm4c129.o
+    0x20000198   0x00000200   Zero   RW          125    STACK               startup_tm4c129.o
 
 
 ==============================================================================
@@ -1183,12 +1186,12 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-      2680        390         18         43        256      12600   exp-proj.o
+      2480        404         18         47        256      12604   exp-proj.o
        300         22        512          0        512       6064   startup_tm4c129.o
         32         12          0          4          0        779   system_tm4c129.o
 
     ----------------------------------------------------------------------
-      3012        424        562         48        768      19443   Object Totals
+      2812        438        562         52        768      19447   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          0          0          0          1          0          0   (incl. Padding)
 
@@ -1228,8 +1231,8 @@ Image component sizes
         10          0          0          0          0        116   fpinit.o
 
     ----------------------------------------------------------------------
-      2646        120       1416          0         96      33384   Library Totals
-        20          0          0          0          0          0   (incl. Padding)
+      2646        120       1416          0        100      33384   Library Totals
+        20          0          0          0          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -1240,7 +1243,7 @@ Image component sizes
         10          0          0          0          0        116   fz_wm.l
 
     ----------------------------------------------------------------------
-      2646        120       1416          0         96      33384   Library Totals
+      2646        120       1416          0        100      33384   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -1249,15 +1252,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5658        544       1978         48        864      48467   Grand Totals
-      5658        544       1978         48        864      48467   ELF Image Totals
-      5658        544       1978         48          0          0   ROM Totals
+      5458        558       1978         52        868      48471   Grand Totals
+      5458        558       1978         52        868      48471   ELF Image Totals
+      5458        558       1978         52          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 7636 (   7.46kB)
-    Total RW  Size (RW Data + ZI Data)               912 (   0.89kB)
-    Total ROM Size (Code + RO Data + RW Data)       7684 (   7.50kB)
+    Total RO  Size (Code + RO Data)                 7436 (   7.26kB)
+    Total RW  Size (RW Data + ZI Data)               920 (   0.90kB)
+    Total ROM Size (Code + RO Data + RW Data)       7488 (   7.31kB)
 
 ==============================================================================
 

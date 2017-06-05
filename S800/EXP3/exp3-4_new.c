@@ -16,7 +16,7 @@
 
 #define SYSTICK_FREQUENCY		1000			//1000hz
 
-#define	I2C_FLASHTIME				500				//500mS
+#define	I2C_FLASHTIME			500				//500mS
 #define GPIO_FLASHTIME			300				//300mS
 //*****************************************************************************
 //
@@ -26,7 +26,7 @@
 #define TCA6424_I2CADDR 					0x22
 #define PCA9557_I2CADDR						0x18
 
-#define PCA9557_INPUT							0x00
+#define PCA9557_INPUT						0x00
 #define	PCA9557_OUTPUT						0x01
 #define PCA9557_POLINVERT					0x02
 #define PCA9557_CONFIG						0x03
@@ -67,27 +67,27 @@ int main(void)
 {
 	volatile uint16_t	i2c_flash_cnt,gpio_flash_cnt;
 	//use internal 16M oscillator, PIOSC
-   //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
+	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
 	//ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 8000000);		
 	//use external 25M oscillator, MOSC
-   //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_OSC), 25000000);		
+	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_OSC), 25000000);		
 
 	//use external 25M oscillator and PLL to 120M
-   //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;		
+	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;		
 	ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 20000000);
 	
-  SysTickPeriodSet(ui32SysClock/SYSTICK_FREQUENCY);
+	SysTickPeriodSet(ui32SysClock/SYSTICK_FREQUENCY);
 	SysTickEnable();
 	SysTickIntEnable();																		//Enable Systick interrupt
-	  
+		
 
 	S800_GPIO_Init();
 	S800_I2C0_Init();
 	S800_UART_Init();
 	
 	IntEnable(INT_UART0);	// 
-  UARTIntEnable(UART0_BASE, UART_INT_RX | UART_INT_RT);	//Enable UART0 RX, Receive Time Out interrupt
-  IntMasterEnable();	
+	UARTIntEnable(UART0_BASE, UART_INT_RX | UART_INT_RT);	//Enable UART0 RX, Receive Time Out interrupt
+	IntMasterEnable();	
 	
 	ui32IntPriorityMask				= IntPriorityMaskGet();
 	IntPriorityGroupingSet(1);														//Set all priority to pre-emtption priority
@@ -129,7 +129,7 @@ int main(void)
 				cnt++;
 				rightshift= rightshift<<1;
 
-				if (cnt		  >= 0x8)
+				if (cnt			>= 0x8)
 				{
 					rightshift= 0x01;
 					cnt 			= 0;
@@ -164,16 +164,16 @@ void UARTStringPutNonBlocking(const char *cMessage)
 void S800_UART_Init(void)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);						//Enable PortA
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);						//Enable PortA
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOA));			//Wait for the GPIO moduleA ready
 
 	GPIOPinConfigure(GPIO_PA0_U0RX);												// Set GPIO A0 and A1 as UART pins.
-  GPIOPinConfigure(GPIO_PA1_U0TX);    			
+	GPIOPinConfigure(GPIO_PA1_U0TX);					
 
-  GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 
 	// Configure the UART for 115,200, 8-N-1 operation.
-  UARTConfigSetExpClk(UART0_BASE, ui32SysClock,115200,(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |UART_CONFIG_PAR_NONE));
+	UARTConfigSetExpClk(UART0_BASE, ui32SysClock,115200,(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |UART_CONFIG_PAR_NONE));
 	UARTStringPut((uint8_t *)"\r\nHello, world!\r\n");
 }
 void S800_GPIO_Init(void)
@@ -185,9 +185,9 @@ void S800_GPIO_Init(void)
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);						//Enable PortN	
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPION));			//Wait for the GPIO moduleN ready		
 	
-  GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
-  GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);			//Set PN0 as Output pin
-  GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_1);			//Set PN1 as Output pin	
+	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
+	GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);			//Set PN0 as Output pin
+	GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_1);			//Set PN1 as Output pin	
 
 	GPIOPinTypeGPIOInput(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1);//Set the PJ0,PJ1 as input pin
 	GPIOPadConfigSet(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
@@ -196,12 +196,12 @@ void S800_GPIO_Init(void)
 void S800_I2C0_Init(void)
 {
 	uint8_t result;
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
 	GPIOPinConfigure(GPIO_PB2_I2C0SCL);
-  GPIOPinConfigure(GPIO_PB3_I2C0SDA);
-  GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
-  GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
+	GPIOPinConfigure(GPIO_PB3_I2C0SDA);
+	GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
+	GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
 
 	I2CMasterInitExpClk(I2C0_BASE,ui32SysClock, true);										//config I2C0 400k
 	I2CMasterEnable(I2C0_BASE);	
@@ -274,9 +274,9 @@ void SysTick_Handler(void)
 		systick_10ms_couter		= SYSTICK_FREQUENCY/100;
 		systick_10ms_status 	= 1;
 	}
-	while (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0) == 0)         // 读取USER_SW1按下
+	while (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0) == 0)				 // 读取USER_SW1按下
 	{
-		systick_100ms_status	= systick_10ms_status = 0;        // 计数器归零
+		systick_100ms_status	= systick_10ms_status = 0;				// 计数器归零
 		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0,GPIO_PIN_0);		// Turn on LED D2
 	}
 
@@ -289,22 +289,22 @@ void SysTick_Handler(void)
 void UART0_Handler(void)
 {
 	int32_t uart0_int_status;
-  uart0_int_status 		= UARTIntStatus(UART0_BASE, true);		// Get the interrrupt status.
+	uart0_int_status 		= UARTIntStatus(UART0_BASE, true);		// Get the interrrupt status.
 
-  UARTIntClear(UART0_BASE, uart0_int_status);								//Clear the asserted interrupts
+	UARTIntClear(UART0_BASE, uart0_int_status);								//Clear the asserted interrupts
 
-  while(UARTCharsAvail(UART0_BASE))    											// Loop while there are characters in the receive FIFO.
-  {
+	while(UARTCharsAvail(UART0_BASE))													// Loop while there are characters in the receive FIFO.
+	{
 		///Read the next character from the UART and write it back to the UART.
-    UARTCharPutNonBlocking(UART0_BASE,UARTCharGetNonBlocking(UART0_BASE));
+		UARTCharPutNonBlocking(UART0_BASE,UARTCharGetNonBlocking(UART0_BASE));
 		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1,GPIO_PIN_1 );		// Turn on LED D1
 //		Delay(1000);
 	}
 	GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1,0 );					// Turn off LED D1
 	
 	
-	while (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_1) == 0)      // If USER_SW2 is pressed,
-		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1,GPIO_PIN_1);	  // then Turn on LED D1
+	while (GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_1) == 0)			// If USER_SW2 is pressed,
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1,GPIO_PIN_1);		// then Turn on LED D1
 
-	GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1,0);              // Turn off LED D1
+	GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1,0);							// Turn off LED D1
 }

@@ -64,19 +64,19 @@ int main(void)
 {
 	volatile uint16_t	i2c_flash_cnt,gpio_flash_cnt;
 	//use internal 16M oscillator, PIOSC
-   //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
+	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 16000000);		
 	//ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT |SYSCTL_USE_OSC), 8000000);		
 	//use external 25M oscillator, MOSC
-   //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_OSC), 25000000);		
+	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_OSC), 25000000);		
 
 	//use external 25M oscillator and PLL to 120M
-   //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;		
+	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;		
 	ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 20000000);
 	
-  SysTickPeriodSet(ui32SysClock/SYSTICK_FREQUENCY);
+	SysTickPeriodSet(ui32SysClock/SYSTICK_FREQUENCY);
 	SysTickEnable();
 	SysTickIntEnable();
-   IntMasterEnable();		
+	 IntMasterEnable();		
 
 	
 	S800_GPIO_Init();
@@ -112,7 +112,7 @@ int main(void)
 				cnt++;
 				rightshift= rightshift<<1;
 
-				if (cnt		  >= 0x8)
+				if (cnt			>= 0x8)
 				{
 					rightshift= 0x01;
 					cnt 			= 0;
@@ -142,16 +142,16 @@ void UARTStringPut(const char *cMessage)
 void S800_UART_Init(void)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);						//Enable PortA
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);						//Enable PortA
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOA));			//Wait for the GPIO moduleA ready
 
 	GPIOPinConfigure(GPIO_PA0_U0RX);												// Set GPIO A0 and A1 as UART pins.
-  GPIOPinConfigure(GPIO_PA1_U0TX);    			
+	GPIOPinConfigure(GPIO_PA1_U0TX);					
 
-  GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 
 	// Configure the UART for 115,200, 8-N-1 operation.
-  UARTConfigSetExpClk(UART0_BASE, ui32SysClock,115200,(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |UART_CONFIG_PAR_NONE));
+	UARTConfigSetExpClk(UART0_BASE, ui32SysClock,115200,(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |UART_CONFIG_PAR_NONE));
 	UARTStringPut((uint8_t *)"\r\nHello, world!\r\n");
 }
 void S800_GPIO_Init(void)
@@ -163,8 +163,8 @@ void S800_GPIO_Init(void)
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);						//Enable PortN	
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPION));			//Wait for the GPIO moduleN ready		
 	
-  GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
-  GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);			//Set PN0 as Output pin
+	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);			//Set PF0 as Output pin
+	GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);			//Set PN0 as Output pin
 
 	GPIOPinTypeGPIOInput(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1);//Set the PJ0,PJ1 as input pin
 	GPIOPadConfigSet(GPIO_PORTJ_BASE,GPIO_PIN_0 | GPIO_PIN_1,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
@@ -173,12 +173,12 @@ void S800_GPIO_Init(void)
 void S800_I2C0_Init(void)
 {
 	uint8_t result;
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
 	GPIOPinConfigure(GPIO_PB2_I2C0SCL);
-  GPIOPinConfigure(GPIO_PB3_I2C0SDA);
-  GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
-  GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
+	GPIOPinConfigure(GPIO_PB3_I2C0SDA);
+	GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
+	GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
 
 	I2CMasterInitExpClk(I2C0_BASE,ui32SysClock, true);										//config I2C0 400k
 	I2CMasterEnable(I2C0_BASE);	
