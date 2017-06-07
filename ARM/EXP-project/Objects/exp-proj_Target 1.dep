@@ -1,0 +1,27 @@
+Dependencies for Project 'exp-proj', Target 'Target 1': (DO NOT MODIFY !)
+F (.\exp-proj.c)(0x59352462)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-ID:\OneDrive\Documents\2017\嵌入式\SJTU_EE213\S800\EXP-project\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\exp-proj.o --omf_browse .\objects\exp-proj.crf --depend .\objects\exp-proj.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (.\inc\hw_memmap.h)(0x59228A0E)
+I (.\driverlib\debug.h)(0x59228A18)
+I (.\driverlib\gpio.h)(0x59228A1F)
+I (.\inc\hw_i2c.h)(0x59228A0F)
+I (.\inc\hw_types.h)(0x59228A0E)
+I (.\driverlib\i2c.h)(0x59228A17)
+I (.\driverlib\pin_map.h)(0x59228A1B)
+I (.\driverlib\sysctl.h)(0x59228A1D)
+I (.\driverlib\systick.h)(0x59228A26)
+I (.\driverlib\interrupt.h)(0x59228A17)
+I (.\driverlib\uart.h)(0x59228A1E)
+I (.\inc\hw_ints.h)(0x59228A11)
+F (.\driverlib\rvmdk\driverlib.lib)(0x59228A36)()
+F (RTE\Device\TM4C1294NCPDT\startup_TM4C129.s)(0x59228A14)(--cpu Cortex-M4.fp -g --apcs=interwork -ID:\OneDrive\Documents\2017\嵌入式\SJTU_EE213\S800\EXP-project\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129--pd "__UVISION_VERSION SETA 522" --pd "_RTE_ SETA 1" --pd "TM4C1294NCPDT SETA 1"--list .\listings\startup_tm4c129.lst --xref -o .\objects\startup_tm4c129.o --depend .\objects\startup_tm4c129.d)
+F (RTE\Device\TM4C1294NCPDT\system_TM4C129.c)(0x59228A13)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-ID:\OneDrive\Documents\2017\嵌入式\SJTU_EE213\S800\EXP-project\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\system_tm4c129.o --omf_browse .\objects\system_tm4c129.crf --depend .\objects\system_tm4c129.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129\TM4C129.h)(0x530E9E96)
+I (C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129\TM4C1294NCPDT.h)(0x530E9E96)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\core_cm4.h)(0x5898498A)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_compiler.h)(0x5898498A)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h)(0x5898498A)
+I (C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129\system_TM4C129.h)(0x51BFAA8A)
