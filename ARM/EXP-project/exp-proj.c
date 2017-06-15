@@ -1,3 +1,10 @@
+/* Some useful port information for TM4C1294XL board
+ * @Onboard LED
+ *  D1 - PN1, D2 - PN0, D3 - PF4, D4 - PF0
+ * @USR_SWITCH
+ *  USR_SW1 - PJ0, USR_SW2 - PJ1
+*/
+
 #include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -86,7 +93,8 @@ int main(void)
 	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_OSC), 25000000);		
 
 	//use external 25M oscillator and PLL to 120M
-	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;		
+	 //ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 120000000);;
+	//configure 20M as clock frequency
 	ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_16MHZ |SYSCTL_OSC_INT | SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), 20000000);
 	
 	SysTickPeriodSet(ui32SysClock/SYSTICK_FREQUENCY);		 //Systick at 1000Hz frequency
@@ -118,12 +126,14 @@ int main(void)
 			//TASK 1
 			if (task_1_pri < mask_pri || task_1_pressed_flag)
 			{
+				//GPIO flash D1(PN1)
 				if (++task_1_flash_cnt >= task_1_flash_time)
 				{
 					task_1_flash_cnt = 0;
 					gpio_read_result = GPIOPinRead(GPIO_PORTN_BASE, GPIO_PIN_1);
 					GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1, GPIO_PIN_1 ^ gpio_read_result);
 				}
+				//TASK1 UART message send
 				if (++task_1_uart_cnt >= task_1_uart_time)
 				{
 					task_1_uart_cnt = 0;
@@ -134,12 +144,14 @@ int main(void)
 			//TASK 2
 			if (task_2_pri < mask_pri || task_2_pressed_flag)
 			{
+				//GPIO flash D2(PN0)
 				if (++task_2_flash_cnt >= task_2_flash_time)
 				{
 					task_2_flash_cnt = 0;
 					gpio_read_result = GPIOPinRead(GPIO_PORTN_BASE, GPIO_PIN_0);
 					GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_PIN_0 ^ gpio_read_result);
 				}
+				//TASK2 UART message send
 				if (++task_2_uart_cnt >= task_2_uart_time)
 				{
 					task_2_uart_cnt = 0;
@@ -150,6 +162,7 @@ int main(void)
 			//TASK3 CLOCK
 			if (task_3_pri < mask_pri)
 			{
+				//Update clock counter every second
 				if (++task_3_1s_cnt >= 10)
 				{
 					task_3_1s_cnt = 0;
@@ -165,6 +178,10 @@ int main(void)
 				}
 			}
 			//GPIO Pin Read
+			// Determines the masked priority
+			//@hardware info
+			// USR_SW1 - PJ0
+			// USR_SW2 - PJ1
 			gpio_read_result = GPIOPinRead(GPIO_PORTJ_BASE, GPIO_PIN_0|GPIO_PIN_1);
 			switch ((GPIO_PIN_0 | GPIO_PIN_1) ^ gpio_read_result)
 			{
@@ -197,6 +214,7 @@ int main(void)
 			//TASK 3 segment display & LED display
 			if (task_3_pri < mask_pri)
 			{
+				//7-seg display
 				result							 = I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_OUTPUT_PORT1,seg7[clock_num[seg_cnt]]);	//write port 1				 
 				result							 = I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_OUTPUT_PORT2,seg_scan);	//write port 2
 				
@@ -207,6 +225,8 @@ int main(void)
 					seg_cnt = 0;
 					seg_scan = 0x01;
 				}
+				
+				//LED-8 display
 				if (++task_3_125ms_cnt >= 25)
 				{
 					task_3_125ms_cnt = 0;
@@ -239,6 +259,7 @@ int main(void)
 					uart_receive_buffer[tmpptr] -= 'a' - 'A';
 			}
 			
+			//Read and deal with commands
 			if(!strncmp((char *)uart_receive_buffer, "TASK", 4) && uart_receive_buffer[4] > '0' && uart_receive_buffer[4] < '4')
 			{
 				if (!strcmp((char *)(uart_receive_buffer + 5), "+START"))
